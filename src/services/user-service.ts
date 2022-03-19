@@ -28,15 +28,18 @@ class UserService {
         return createdUser
     }
 
-    public async login (id: string, signature: string) {
-        const user = await this.usersData.firstOrDefault({ _id: id })
-        if (!user || blockchainUtils.isUserSignature(user.nonce, signature, user.address)) {
+    public async login (address: string, signature: string) {
+        const user = await this.usersData.firstOrDefault({ address })
+        if (!user || !blockchainUtils.isUserSignature(user.nonce, signature, user.address)) {
             return null
         }
 
         const userData = {
             id: user.id
         }
+
+        const newNonce = utils.generateRandomString()
+        await this.usersData.update(user.id, { [UserColumns.nonce]: newNonce })
 
         const accessToken: string = jwt.sign(userData, process.env.TOKEN_SECRET, { expiresIn: '1h' })
 

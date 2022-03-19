@@ -1,7 +1,7 @@
 import * as express from 'express'
 import { usersRoutes } from './users-routes'
 import { artTypesRoutes } from './art-types-routes'
-import { projectsRoutes } from './projects-routes';
+import { projectsRoutes } from './projects-routes'
 
 export const registerApiRoutes = (app: any) => {
     const basePrefix = process.env.API_BASE_PREFIX || ''

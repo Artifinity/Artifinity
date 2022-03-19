@@ -25,3 +25,53 @@ where ```address``` is the address of the user's wallet
     "data": {}
 }
 ```
+
+### Update profile personal data
+- Put Request: ```/api/users/profile```
+- Body
+```json
+{
+    "firstName": "Ivan",
+    "lastName": "Ivanov",
+    "bio": "Born to be star",
+    "portfolioUrl": "https://ivan-is-one.com",
+    "id:": "6235906d5e46ea658e889927"
+}
+```
+- Response
+* 200 Success
+```json
+{
+    "message": "The user personal data is updated.",
+    "status": "success",
+    "data": null
+}
+```
+* 400 Bad request
+Body: 
+```json
+{
+    "firstName": "I",
+    "lastName": "Ivanov",
+    "bio": "Born to be star",
+    "portfolioUrl": "https://ivan-is-one.com",
+    "id:": "6235906d5e46ea658e889927"
+}
+```
+Response
+```json
+{
+    "message": "Some of the fields are invalid.",
+    "status": "validationError",
+    "data": [
+        {
+            "value": "I",
+            "msg": "Invalid value",
+            "param": "firstName",
+            "location": "body"
+        }
+    ]
+}
+```
+
+### Login

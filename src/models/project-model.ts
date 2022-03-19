@@ -1,5 +1,5 @@
 import { BaseModel } from './base-model'
-import { ObjectId } from 'mongodb';
+import { ObjectId } from 'mongodb'
 
 export interface ProjectModel extends BaseModel {
     name: string;

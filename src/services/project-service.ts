@@ -2,7 +2,7 @@ import { Repository } from '../data/repositories'
 import { ProjectModel } from '../models/project-model'
 import { Project } from '../data/models'
 import { TaskResult } from '../common/taskResult'
-import { ProjectColumns } from '../data/models/project-columns';
+import { ProjectColumns } from '../data/models/project-columns'
 
 class ProjectService {
 
@@ -34,6 +34,7 @@ class ProjectService {
             .then(() => TaskResult.success('The project were updated successfully.'))
             .catch((err: any) => TaskResult.failure('Error while updating the project', err))
     }
+
 }
 
 export default new ProjectService(new Repository<ProjectModel>(Project))

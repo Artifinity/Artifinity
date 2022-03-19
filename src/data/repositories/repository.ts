@@ -47,7 +47,7 @@ export class Repository<T extends BaseModel> {
         return query.exec()
     }
 
-    public update (id: string, updateValue: any): Promise<any> {
+    public update (id: ObjectId | string, updateValue: any): Promise<any> {
         return this.entity.updateOne({ _id: id }, updateValue).exec()
     }
 
