@@ -14,6 +14,10 @@ class ProjectsController {
         res.json(await ProjectService.getAllForUser(req.user?.id))
     }
 
+    public details = async (req: Request, res: Response): Promise<void> => {
+        res.json(await ProjectService.details(req.params.id))
+    }
+
     public create = (req: AuthenticatedRequest, res: Response): void => {
         const project: ProjectModel = {
             name: req.body.name,

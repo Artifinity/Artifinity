@@ -3,6 +3,7 @@ import { ProjectModel } from '../models/project-model'
 import { Project } from '../data/models'
 import { TaskResult } from '../common/taskResult'
 import { ProjectColumns } from '../data/models/project-columns'
+import { UserColumns } from '../data/models/user-columns'
 import { QueryArgsHelper } from '../utils/query-args-helper'
 
 class ProjectService {
@@ -29,6 +30,24 @@ class ProjectService {
         const filter = { [ProjectColumns.owner]: userId }
         return this.projectsData.filter(filter, '', {
             sort: QueryArgsHelper.descending(ProjectColumns.createdOn)
+        })
+    }
+
+    public details (id: string) {
+        const complexPopulate = [
+            {
+                path: ProjectColumns.owner,
+                select: QueryArgsHelper.build(
+                    UserColumns.firstName,
+                    UserColumns.lastName,
+                    UserColumns.bio,
+                    UserColumns.portfolioUrl
+                )
+            }
+        ]
+
+        return this.projectsData.getById(id, '', {
+            complexPopulate
         })
     }
 

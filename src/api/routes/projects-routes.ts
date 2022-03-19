@@ -7,6 +7,7 @@ export const projectsRoutes = (app: any) => {
     const router = app.Router()
 
     router.get('/mine', addAuth, ProjectsController.allForUser)
+    router.get('/:id', ProjectsController.details)
     router.get('/', ProjectsController.all)
     router.post('/', addAuth, addValidation(ProjectValidators), ProjectsController.create)
     router.put('/:id', addAuth, addValidation(ProjectValidators), ProjectsController.update)

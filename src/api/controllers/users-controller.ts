@@ -7,6 +7,10 @@ import { UserColumns } from '../../data/models/user-columns'
 
 class UsersController {
 
+    public getUserInfo = async (req: Request, res: Response): Promise<void> => {
+        res.json(await UserService.getUserInfo(req.query.address as string))
+    }
+
     public register = async (req: Request, res: Response): Promise<void> => {
         const user: UserRegisterInputModel = {
             address: req.body[UserColumns.address]
@@ -55,7 +59,7 @@ class UsersController {
             [UserColumns.portfolioUrl]: req.body[UserColumns.portfolioUrl]
         }
 
-        UserService.updatePersonalData(req.body.id, body)
+        UserService.updatePersonalData(req.user.id, body)
             .then((result) => responseUtils.processTaskResult(res, result))
             .catch(() => responseUtils.sendErrorMessage(res, 'Error while updating the user personal data.'))
     }

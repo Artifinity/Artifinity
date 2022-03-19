@@ -18,8 +18,9 @@ class UserService {
     }
 
     public async register (user: UserRegisterInputModel): Promise<UserModel | null> {
-        if (await this.usersData.exists({ [UserColumns.address]: user.address })) {
-            return null
+        const existingUser = await this.usersData.firstOrDefault({ [UserColumns.address]: user.address })
+        if (existingUser) {
+            return existingUser
         }
 
         const nonce = utils.generateRandomString()
@@ -64,6 +65,15 @@ class UserService {
         return this.usersData.update(userId, personalData)
             .then(() => TaskResult.success('The user personal data is updated.'))
             .catch(() => TaskResult.failure('Error while updating the user personal data.'))
+    }
+
+    public getUserInfo (address: string): any {
+        const projection = QueryArgsHelper.build(
+            UserColumns.nonce,
+            UserColumns.id
+        )
+
+        return this.usersData.firstOrDefault({ address }, projection)
     }
 
 }
