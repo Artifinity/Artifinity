@@ -4,27 +4,24 @@ import { UserColumns } from './user-columns'
 import { TableNames } from './table-names'
 
 const userSchema = new Schema<UserModel>({
+    [UserColumns.address]: {
+        type: String
+    },
+    [UserColumns.nonce]: {
+        type: String
+    },
     [UserColumns.firstName]: {
-        type: String,
-        required: true
+        type: String
     },
     [UserColumns.lastName]: {
-        type: String,
-        required: true
+        type: String
     },
-    [UserColumns.email]: {
-        type: String,
-        required: true
+    [UserColumns.bio]: {
+        type: String
     },
-    [UserColumns.password]: {
-        type: String,
-        required: true
-    },
-    [UserColumns.phone]: {
-        type: String,
-        required: true
-    },
-    [UserColumns.roles]: { type: [String] }
+    [UserColumns.portfolioUrl]: {
+        type: String
+    }
 })
 
 const User = model<UserModel>(TableNames.user, userSchema)
