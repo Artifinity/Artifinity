@@ -1,10 +1,14 @@
 import { AuthenticatedRequest } from '../common/authenticated-request'
-import { Response } from 'express'
+import { Request, Response } from 'express'
 import { ProjectService } from '../../services'
 import { ProjectModel } from '../../models/project-model'
 import { responseUtils } from '../../utils/response-utils.js'
 
 class ProjectsController {
+
+    public all = async (req: Request, res: Response): Promise<void> => {
+        res.json(await ProjectService.all())
+    }
 
     public allForUser = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
         res.json(await ProjectService.getAllForUser(req.user?.id))

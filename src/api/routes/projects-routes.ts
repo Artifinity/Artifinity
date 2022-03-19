@@ -6,7 +6,8 @@ import { ProjectValidators } from '../validators/project-validators'
 export const projectsRoutes = (app: any) => {
     const router = app.Router()
 
-    router.get('/', addAuth, ProjectsController.allForUser)
+    router.get('/mine', addAuth, ProjectsController.allForUser)
+    router.get('/', ProjectsController.all)
     router.post('/', addAuth, addValidation(ProjectValidators), ProjectsController.create)
     router.put('/:id', addAuth, addValidation(ProjectValidators), ProjectsController.update)
     router.delete('/:id', addAuth, ProjectsController.delete)

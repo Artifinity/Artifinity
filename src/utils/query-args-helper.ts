@@ -7,5 +7,8 @@ export const QueryArgsHelper = {
     },
     disable: (property: string): string => {
         return '-' + property
+    },
+    descending: (property: string): string => {
+        return '-' + property
     }
 }

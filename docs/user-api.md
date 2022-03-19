@@ -75,3 +75,27 @@ Response
 ```
 
 ### Login
+- Post request: ```api/users/login```
+- Body
+```json
+{
+    "address": "0xF552c1D9415aA2485876AD2BdFc6B8A0C84075FC",
+    "signature": "0x2dd0f28e02bb58c8d96409ca3d0fdb668bb46c78c39d3f8a137ce16204743f6c65d58ce1fe4c436129bdcb817c9c26082f255393829f13440da999d2b7878c021b"
+}
+```
+- Response
+* 200 Success
+```json
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMzViZTMwMzRiMTA2NzBjNzI2YWFhNSIsImlhdCI6MTY0NzY5ODMzNywiZXhwIjoxNjQ3NzAxOTM3fQ.V8MtK49ilkAStd4ntE73mdD9DyMKvMu4W4rcDXvManI",
+    "id": "6235be3034b10670c726aaa5"
+}
+```
+* 400 Bad request
+```json
+{
+    "message": "Invalid credentials.",
+    "status": "failure",
+    "data": {}
+}
+```

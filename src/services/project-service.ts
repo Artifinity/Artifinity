@@ -3,6 +3,7 @@ import { ProjectModel } from '../models/project-model'
 import { Project } from '../data/models'
 import { TaskResult } from '../common/taskResult'
 import { ProjectColumns } from '../data/models/project-columns'
+import { QueryArgsHelper } from '../utils/query-args-helper'
 
 class ProjectService {
 
@@ -12,9 +13,23 @@ class ProjectService {
         this.projectsData = projectsData
     }
 
+    public all () {
+        const filter = {
+            [ProjectColumns.endDate]: {
+                $gte: Date.now()
+            }
+        }
+
+        return this.projectsData.filter(filter, '', {
+            sort: ProjectColumns.endDate
+        })
+    }
+
     public getAllForUser (userId: string) {
         const filter = { [ProjectColumns.owner]: userId }
-        return this.projectsData.filter(filter)
+        return this.projectsData.filter(filter, '', {
+            sort: QueryArgsHelper.descending(ProjectColumns.createdOn)
+        })
     }
 
     public async create (project: ProjectModel): Promise<TaskResult> {
