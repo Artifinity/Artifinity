@@ -1,4 +1,5 @@
 export const TableNames = {
     user: 'User',
-    artTypes: 'ArtTypes'
+    artTypes: 'ArtTypes',
+    projects: 'Projects'
 }
