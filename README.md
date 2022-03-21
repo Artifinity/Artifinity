@@ -7,6 +7,6 @@ https://github.com/Owliie/Artifinity-frontend
 # Blockchain project
 https://github.com/R-Santev/artfinity-contracts
 
-# Preentation
+# Presentation
 https://prezi.com/view/qcqYwZrGZwUK8LhRD8Nc/
 
