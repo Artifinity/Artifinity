@@ -42,7 +42,7 @@ class UserService {
         const newNonce = utils.generateRandomString()
         await this.usersData.update(user.id, { [UserColumns.nonce]: newNonce })
 
-        const accessToken: string = jwt.sign(userData, process.env.TOKEN_SECRET, { expiresIn: '1h' })
+        const accessToken: string = jwt.sign(userData, process.env.TOKEN_SECRET, { expiresIn: '8h' })
 
         return {
             userData: {
@@ -65,6 +65,12 @@ class UserService {
         return this.usersData.update(userId, personalData)
             .then(() => TaskResult.success('The user personal data is updated.'))
             .catch(() => TaskResult.failure('Error while updating the user personal data.'))
+    }
+
+    public approve (userId: string): Promise<TaskResult> {
+        return this.usersData.update(userId, { [UserColumns.approvedOn]: Date.now() })
+            .then(() => TaskResult.success('The user is approved.'))
+            .catch(() => TaskResult.failure('Error while approving the user.'))
     }
 
     public getUserInfo (address: string): any {

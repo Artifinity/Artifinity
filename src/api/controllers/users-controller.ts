@@ -55,13 +55,27 @@ class UsersController {
         const body = {
             [UserColumns.firstName]: req.body[UserColumns.firstName],
             [UserColumns.lastName]: req.body[UserColumns.lastName],
-            [UserColumns.bio]: req.body[UserColumns.bio],
-            [UserColumns.portfolioUrl]: req.body[UserColumns.portfolioUrl]
+            [UserColumns.email]: req.body[UserColumns.email],
+            [UserColumns.username]: req.body[UserColumns.username],
+            [UserColumns.avatar]: req.body[UserColumns.avatar],
+            [UserColumns.coverPhoto]: req.body[UserColumns.coverPhoto],
+            [UserColumns.twitterUrl]: req.body[UserColumns.twitterUrl],
+            [UserColumns.facebookUrl]: req.body[UserColumns.facebookUrl],
+            [UserColumns.youTubeUrl]: req.body[UserColumns.youTubeUrl],
+            [UserColumns.instagramUrl]: req.body[UserColumns.instagramUrl]
         }
 
         UserService.updatePersonalData(req.user.id, body)
             .then((result) => responseUtils.processTaskResult(res, result))
             .catch(() => responseUtils.sendErrorMessage(res, 'Error while updating the user personal data.'))
+    }
+
+    public approve = async (req: Request, res: Response): Promise<void> => {
+        const userId = req.body.userId
+
+        UserService.approve(userId)
+            .then((result) => responseUtils.processTaskResult(res, result))
+            .catch(() => responseUtils.sendErrorMessage(res, 'Error while approving the user.'))
     }
 
 }

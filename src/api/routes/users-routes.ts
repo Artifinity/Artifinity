@@ -12,6 +12,7 @@ export const usersRoutes = (expressApp: any) => {
     router.get('/info', UsersController.getUserInfo)
     router.get('/profile', addAuth, UsersController.profile)
     router.put('/profile', addAuth, addValidation(RegisterValidators), UsersController.updateProfile)
+    router.put('/approve', UsersController.approve)
 
     return router
 }

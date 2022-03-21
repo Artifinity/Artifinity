@@ -12,6 +12,7 @@ export const projectsRoutes = (app: any) => {
     router.post('/', addAuth, addValidation(ProjectValidators), ProjectsController.create)
     router.put('/:id', addAuth, addValidation(ProjectValidators), ProjectsController.update)
     router.delete('/:id', addAuth, ProjectsController.delete)
+    router.post('/invest/:id', ProjectsController.invest)
 
     return router
 }

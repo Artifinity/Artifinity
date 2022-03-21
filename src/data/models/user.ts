@@ -16,11 +16,33 @@ const userSchema = new Schema<UserModel>({
     [UserColumns.lastName]: {
         type: String
     },
-    [UserColumns.bio]: {
+    [UserColumns.username]: {
         type: String
     },
-    [UserColumns.portfolioUrl]: {
+    [UserColumns.email]: {
         type: String
+    },
+    [UserColumns.avatar]: {
+        type: String
+    },
+    [UserColumns.coverPhoto]: {
+        type: String
+    },
+    [UserColumns.youTubeUrl]: {
+        type: String
+    },
+    [UserColumns.facebookUrl]: {
+        type: String
+    },
+    [UserColumns.instagramUrl]: {
+        type: String
+    },
+    [UserColumns.twitterUrl]: {
+        type: String
+    },
+    [UserColumns.approvedOn]: {
+        type: Date,
+        default: undefined
     }
 })
 

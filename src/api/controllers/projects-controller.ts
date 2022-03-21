@@ -26,12 +26,25 @@ class ProjectsController {
             url: req.body.url,
             imageUrl: req.body.imageUrl,
             tags: req.body.tags,
-            endDate: req.body.endDate
+            endDate: req.body.endDate,
+            contractId: req.body.contractId,
+            campaignId: req.body.campaignId,
+            tokenId: req.body.tokenId,
+            targetSum: req.body.targetSum,
+            perks: req.body.perks
         }
 
         ProjectService.create(project)
             .then(result => responseUtils.processTaskResult(res, result))
             .catch(() => responseUtils.sendErrorMessage(res, 'Problem occur while creating the project.'))
+    }
+
+    public invest = (req: AuthenticatedRequest, res: Response): void => {
+        const amount = +req.body.amount
+
+        ProjectService.invest(req.params.id, amount)
+            .then(result => responseUtils.processTaskResult(res, result))
+            .catch(() => responseUtils.sendErrorMessage(res, 'Problem occur while investing.'))
     }
 
     public update = (req: AuthenticatedRequest, res: Response): void => {

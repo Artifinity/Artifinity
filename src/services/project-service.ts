@@ -38,10 +38,16 @@ class ProjectService {
             {
                 path: ProjectColumns.owner,
                 select: QueryArgsHelper.build(
+                    UserColumns.username,
+                    UserColumns.email,
                     UserColumns.firstName,
                     UserColumns.lastName,
-                    UserColumns.bio,
-                    UserColumns.portfolioUrl
+                    UserColumns.coverPhoto,
+                    UserColumns.avatar,
+                    UserColumns.youTubeUrl,
+                    UserColumns.instagramUrl,
+                    UserColumns.twitterUrl,
+                    UserColumns.facebookUrl
                 )
             }
         ]
@@ -67,6 +73,22 @@ class ProjectService {
         return this.projectsData.update(id, newData)
             .then(() => TaskResult.success('The project were updated successfully.'))
             .catch((err: any) => TaskResult.failure('Error while updating the project', err))
+    }
+
+    public async invest (id: string, amount: number): Promise<TaskResult> {
+        const project = await this.projectsData.firstOrDefault({ _id: id })
+
+        if (!project) {
+            return TaskResult.failure('The project does not exist!')
+        }
+
+        const body = {
+            [ProjectColumns.raisedSum]: project.raisedSum + amount
+        }
+
+        return this.projectsData.update(id, body)
+            .then(() => TaskResult.success('The project were invested successfully.'))
+            .catch((err: any) => TaskResult.failure('Error while investing in the project', err))
     }
 
 }
