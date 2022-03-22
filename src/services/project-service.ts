@@ -14,15 +14,36 @@ class ProjectService {
         this.projectsData = projectsData
     }
 
-    public all () {
+    public all = async (): Promise<ProjectModel[]> => {
+        const complexPopulate = [
+            {
+                path: ProjectColumns.owner,
+                select: QueryArgsHelper.build(
+                    UserColumns.firstName,
+                    UserColumns.lastName
+                )
+            }
+        ]
+
         const filter = {
             [ProjectColumns.endDate]: {
                 $gte: Date.now()
             }
         }
 
-        return this.projectsData.filter(filter, '', {
-            sort: ProjectColumns.endDate
+        const projection = QueryArgsHelper.build(
+            ProjectColumns.endDate,
+            ProjectColumns.raisedSum,
+            ProjectColumns.createdOn,
+            ProjectColumns.targetSum,
+            ProjectColumns.description,
+            ProjectColumns.imageUrl,
+            ProjectColumns.name
+        )
+
+        return this.projectsData.filter(filter, projection, {
+            sort: ProjectColumns.endDate,
+            complexPopulate
         })
     }
 

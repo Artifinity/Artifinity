@@ -46,7 +46,12 @@ export class APIServer {
     }
 
     private initializeDatabase () {
-        if (process.env.MONGODB_URI) {
+        if (process.env.NODE_ENV === 'DEV') {
+            mongoose.connect(process.env.MONGODB_URI)
+                .then(() => {
+                    console.log('DB Connected')
+                })
+        } else {
             const mongoUri = process.env.MONGODB_URI
 
             const certPath = path.normalize(path.join(__dirname, './../ca-certificate.srt'))
@@ -58,7 +63,8 @@ export class APIServer {
                 }
                 mongoose.connect(mongoUri, {
                     tls: true,
-                    tlsCAFile: certPath
+                    tlsCAFile: certPath,
+                    dbName: process.env.MONGODB_URI.split('/').pop()
                 })
             })
             const db = mongoose.connection

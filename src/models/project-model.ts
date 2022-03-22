@@ -16,6 +16,7 @@ export interface ProjectModel extends BaseModel {
     targetSum: number;
     raisedSum?: number;
     perks: PerkModel[];
+    isCompleted?: boolean;
 }
 
 export interface PerkModel {
