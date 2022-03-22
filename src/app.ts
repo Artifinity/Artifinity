@@ -7,8 +7,9 @@ import { getLoggerFor } from './services/logger'
 import { ApplicationSeeder } from './data/seeders/application-seeder'
 import { utils } from './utils'
 import lusca from 'lusca'
-
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
+import path from 'path'
+import fs from 'fs'
 
 export class APIServer {
 
@@ -45,10 +46,25 @@ export class APIServer {
     }
 
     private initializeDatabase () {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => {
-                console.log('DB Connected')
+        if (process.env.MONGODB_URI) {
+            const mongoUri = process.env.MONGODB_URI
+
+            const certPath = path.normalize(path.join(__dirname, './../ca-certificate.srt'))
+
+            fs.writeFile(certPath, process.env.CA_CERT, (err) => {
+                if (err) {
+                    console.log(err)
+                    return
+                }
+                mongoose.connect(mongoUri, {
+                    tls: true,
+                    tlsCAFile: certPath
+                })
             })
+            const db = mongoose.connection
+            db.on('error', () => { console.log('Failed to connect to the DB!') })
+            db.once('open', () => { console.log('Successfully opened DB connection!') })
+        }
     }
 
     private config (): void {
