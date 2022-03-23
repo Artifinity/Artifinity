@@ -68,7 +68,8 @@ class ProjectService {
                     UserColumns.youTubeUrl,
                     UserColumns.instagramUrl,
                     UserColumns.twitterUrl,
-                    UserColumns.facebookUrl
+                    UserColumns.facebookUrl,
+                    UserColumns.address
                 )
             }
         ]
