@@ -64,7 +64,7 @@ export class APIServer {
                 mongoose.connect(mongoUri, {
                     tls: true,
                     tlsCAFile: certPath,
-                    dbName: process.env.MONGODB_URI.split('/').pop()
+                    dbName: 'gigix-dev'
                 })
             })
             const db = mongoose.connection
