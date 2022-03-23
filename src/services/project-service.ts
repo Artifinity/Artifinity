@@ -25,12 +25,6 @@ class ProjectService {
             }
         ]
 
-        const filter = {
-            [ProjectColumns.endDate]: {
-                $gte: Date.now()
-            }
-        }
-
         const projection = QueryArgsHelper.build(
             ProjectColumns.endDate,
             ProjectColumns.raisedSum,
@@ -41,7 +35,7 @@ class ProjectService {
             ProjectColumns.name
         )
 
-        return this.projectsData.filter(filter, projection, {
+        return this.projectsData.filter({}, projection, {
             sort: ProjectColumns.endDate,
             complexPopulate
         })
