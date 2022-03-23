@@ -43,8 +43,20 @@ class ProjectService {
 
     public getAllForUser (userId: string) {
         const filter = { [ProjectColumns.owner]: userId }
+
+        const complexPopulate = [
+            {
+                path: ProjectColumns.owner,
+                select: QueryArgsHelper.build(
+                    UserColumns.firstName,
+                    UserColumns.lastName
+                )
+            }
+        ]
+
         return this.projectsData.filter(filter, '', {
-            sort: QueryArgsHelper.descending(ProjectColumns.createdOn)
+            sort: QueryArgsHelper.descending(ProjectColumns.createdOn),
+            complexPopulate
         })
     }
 
