@@ -34,7 +34,7 @@ const projectSchema = new Schema<ProjectModel>({
     },
     [ProjectColumns.createdOn]: {
         type: Date,
-        default: Date.now(),
+        default: new Date().toUTCString(),
         required: true
     },
     [ProjectColumns.endDate]: {
